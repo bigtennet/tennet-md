@@ -42,10 +42,10 @@ Get complete bot information and contact details.
 }
 ```
 
-### 3. Generate Pairing Code
+### 3. Generate Pairing Code (Detailed)
 **GET** `/api/pairing-code?number=PHONE_NUMBER`
 
-Generate a WhatsApp pairing code for a phone number.
+Generate a WhatsApp pairing code for a phone number with detailed response.
 
 **Parameters:**
 - `number` (required): WhatsApp phone number without + (e.g., 2348124269148)
@@ -54,9 +54,25 @@ Generate a WhatsApp pairing code for a phone number.
 ```json
 {
   "success": true,
-  "message": "Pairing code generated successfully",
+  "code": "ABCD-EFGH",
   "number": "2348124269148",
+  "message": "Pairing code generated successfully",
   "timestamp": "2025-01-06T19:57:42.000Z"
+}
+```
+
+### 4. Generate Pairing Code (Simple)
+**GET** `/api/code?number=PHONE_NUMBER`
+
+Generate a WhatsApp pairing code with simple response format.
+
+**Parameters:**
+- `number` (required): WhatsApp phone number without + (e.g., 2348124269148)
+
+**Response:**
+```json
+{
+  "code": "ABCD-EFGH"
 }
 ```
 
@@ -103,10 +119,15 @@ const info = await fetch('https://tennet-md.pxxl.click/api/info');
 const infoData = await info.json();
 console.log(infoData);
 
-// Generate pairing code
+// Generate pairing code (detailed response)
 const code = await fetch('https://tennet-md.pxxl.click/api/pairing-code?number=2348124269148');
 const codeData = await code.json();
-console.log(codeData);
+console.log(codeData.code); // "ABCD-EFGH"
+
+// Generate pairing code (simple response)
+const simpleCode = await fetch('https://tennet-md.pxxl.click/api/code?number=2348124269148');
+const simpleCodeData = await simpleCode.json();
+console.log(simpleCodeData.code); // "ABCD-EFGH"
 ```
 
 ### PHP/cURL
