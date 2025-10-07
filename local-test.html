@@ -107,7 +107,7 @@
                 // Test 3: Simple Pairing Code
                 resultDiv.textContent += '3. Testing Simple Pairing Code...\n';
                 try {
-                    const codeResponse = await fetch(`${API_BASE}/api/code?number=2348124269148`);
+                    const codeResponse = await fetch(`${API_BASE}/api/code?number=2347078379027`);
                     const codeData = await codeResponse.json();
                     results.push('✅ Simple Code: ' + JSON.stringify(codeData, null, 2));
                 } catch (error) {
@@ -118,7 +118,7 @@
                 // Test 4: Detailed Pairing Code
                 resultDiv.textContent += '4. Testing Detailed Pairing Code...\n';
                 try {
-                    const detailedResponse = await fetch(`${API_BASE}/api/pairing-code?number=2348124269148`);
+                    const detailedResponse = await fetch(`${API_BASE}/api/pairing-code?number=2347078379027`);
                     const detailedData = await detailedResponse.json();
                     results.push('✅ Detailed Code: ' + JSON.stringify(detailedData, null, 2));
                 } catch (error) {
