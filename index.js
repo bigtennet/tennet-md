@@ -4,7 +4,7 @@ const express = require('express');
 const app = express();
 const __path = process.cwd();
 const bodyParser = require('body-parser');
-const PORT = process.env.PORT || 2004;
+const PORT = process.env.PORT || 3000;
 const axios = require('axios');
 const { EventEmitter } = require('events');
 require('@whiskeysockets/baileys');
