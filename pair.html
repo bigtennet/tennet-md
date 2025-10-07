@@ -1,0 +1,270 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>👑 TENNET-MD 👑</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: black;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 420px;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .header h1 {
+      font-size: 1.8rem;
+      font-weight: bold;
+      background: -webkit-linear-gradient(#fff, #888);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Card */
+    .card {
+      background: rgba(20, 20, 20, 0.9);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+    }
+
+    .card h2 {
+      margin: 0 0 15px;
+      font-size: 1.2rem;
+      color: #ddd;
+    }
+
+    .input-container {
+      display: flex;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 15px;
+      border: 1px solid #333;
+    }
+
+    .input-container input {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+      background: #111;
+      color: #fff;
+      min-width: 0;
+    }
+
+    .input-container button {
+      background: linear-gradient(135deg, #0f0, #0a0);
+      border: none;
+      padding: 12px 18px;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .input-container button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 12px #0f0;
+    }
+
+    #pair {
+      margin-top: 10px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    /* Links */
+    .sponsor {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px;
+      background: rgba(30, 30, 30, 0.9);
+      border-radius: 12px;
+      margin-bottom: 10px;
+      transition: 0.3s;
+    }
+
+    .sponsor-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .sponsor img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      transition: 0.3s;
+    }
+
+    .sponsor h4 {
+      margin: 0;
+      font-size: 1rem;
+      color: #eee;
+    }
+
+    .sponsor p {
+      margin: 0;
+      font-size: 0.85rem;
+      color: #999;
+    }
+
+    .sponsor a {
+      color: #bbb;
+      font-weight: bold;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    /* Hover glow effects */
+    .sponsor:hover img {
+      transform: scale(1.1);
+    }
+
+    .sponsor:nth-child(2):hover a { color: red; text-shadow: 0 0 8px red; }
+    .sponsor:nth-child(3):hover a { color: #0088cc; text-shadow: 0 0 8px #0088cc; }
+    .sponsor:nth-child(4):hover a { color: gold; text-shadow: 0 0 8px gold; }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 0.85rem;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Header -->
+    <div class="header">
+      <h1>👑 TENNET-MD 👑</h1>
+    </div>
+
+    <!-- Pair Number -->
+    <div class="card">
+      <h2>Enter your WhatsApp number without +</h2>
+      <div class="input-container">
+        <input type="number" id="number" placeholder="Enter phone number...">
+        <button id="submit">Pair Now</button>
+      </div>
+      <div id="waiting-message" style="display:none;">⏳ Please wait...</div>
+      <main id="pair"></main>
+    </div>
+
+    <!-- Official Links -->
+    <div class="card">
+      <h2>Official Links</h2>
+
+      <!-- YouTube -->
+      <div class="sponsor">
+        <div class="sponsor-info">
+          <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube">
+          <div>
+            <h4>YouTube Channel</h4>
+            <p>Subscribe for updates 🎬</p>
+          </div>
+        </div>
+        <a href="https://youtube.com/@tennetmdbot" target="_blank">Visit</a>
+      </div>
+
+      <!-- Telegram -->
+      <div class="sponsor">
+        <div class="sponsor-info">
+          <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram">
+          <div>
+            <h4>Telegram Channel</h4>
+            <p>Join our community 📢</p>
+          </div>
+        </div>
+        <a href="https://t.me/tennetmdbot" target="_blank">Join</a>
+      </div>
+
+      <!-- Owner -->
+      <div class="sponsor">
+        <div class="sponsor-info">
+          <img src="https://www.tennetteam.com/assets/images/slider/Brand%20icon.png" alt="Owner">
+          <div>
+            <h4>Owner</h4>
+            <p>Contact me directly 👑</p>
+          </div>
+        </div>
+        <a href="https://t.me/drainer_lord" target="_blank">Message</a>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>© Created by TENNET-MD</p>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
+  <script>
+    let a = document.getElementById("pair");
+    let b = document.getElementById("submit");
+    let c = document.getElementById("number");
+    let waiting = document.getElementById("waiting-message");
+
+    async function Copy() {
+      let text = document.getElementById("copy").innerText;
+      let obj = document.getElementById("copy");
+      await navigator.clipboard.writeText(obj.innerText.replace('CODE: ', ''));
+      obj.innerText = "✅ COPIED!";
+      obj.style.color = "lime";
+      setTimeout(() => {
+        obj.innerText = text;
+        obj.style.color = "#eee";
+      }, 1200);
+    }
+
+    b.addEventListener("click", async (e) => {
+      e.preventDefault();
+      if (!c.value) {
+        a.innerHTML = '<p style="color:orange;font-weight:bold">⚠️ Enter your WhatsApp number</p>';
+      } else if (c.value.replace(/[^0-9]/g, "").length < 11) {
+        a.innerHTML = '<p style="color:red;font-weight:bold">❌ Invalid number</p>';
+      } else {
+        waiting.style.display = "block";
+        a.innerHTML = "";
+
+        const raw = c.value.replace(/[^0-9]/g, "");
+        try {
+          const { data } = await axios.get(`/code?number=${raw}`);
+          let code = data.code || data; // ✅ supports JSON or plain text
+          waiting.style.display = "none";
+          a.innerHTML = `<div style="color:#00ff00;font-weight:bold;margin-bottom:10px">🤖 TENNET-MD Bot</div><div id="copy" onclick="Copy()" style="color:#eee;font-weight:bold;cursor:pointer">CODE: <span style="color:white">${code}</span></div>`;
+        } catch (err) {
+          waiting.style.display = "none";
+          a.innerHTML = '<p style="color:red;font-weight:bold">⚠️ Failed to fetch code</p>';
+        }
+      }
+    });
+  </script>
+</body>
+</html>
