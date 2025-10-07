@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local TENNET-MD API Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        button {
+            background: #25D366;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            width: 100%;
+        }
+        button:hover {
+            background: #128C7E;
+        }
+        .result {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 3px;
+            margin-top: 10px;
+            white-space: pre-wrap;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+        }
+        .info {
+            background: #d1ecf1;
+            color: #0c5460;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 TENNET-MD API Test</h1>
+        
+        <div class="info">
+            <strong>Note:</strong> This test page calls your deployed bot at <code>https://tennet-md.pxxl.click</code><br>
+            Make sure your bot is deployed and running before testing.
+        </div>
+
+        <button onclick="testAllAPIs()">🧪 Test All APIs</button>
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        const API_BASE = 'https://tennet-md.pxxl.click';
+
+        async function testAllAPIs() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.textContent = 'Testing APIs...\n';
+            resultDiv.className = 'result';
+            
+            let allTestsPassed = true;
+            let results = [];
+
+            try {
+                // Test 1: Health Check
+                resultDiv.textContent += '1. Testing Health Check...\n';
+                try {
+                    const healthResponse = await fetch(`${API_BASE}/api/health`);
+                    const healthData = await healthResponse.json();
+                    results.push('✅ Health Check: ' + JSON.stringify(healthData, null, 2));
+                } catch (error) {
+                    results.push('❌ Health Check Failed: ' + error.message);
+                    allTestsPassed = false;
+                }
+
+                // Test 2: Bot Info
+                resultDiv.textContent += '2. Testing Bot Info...\n';
+                try {
+                    const infoResponse = await fetch(`${API_BASE}/api/info`);
+                    const infoData = await infoResponse.json();
+                    results.push('✅ Bot Info: ' + JSON.stringify(infoData, null, 2));
+                } catch (error) {
+                    results.push('❌ Bot Info Failed: ' + error.message);
+                    allTestsPassed = false;
+                }
+
+                // Test 3: Simple Pairing Code
+                resultDiv.textContent += '3. Testing Simple Pairing Code...\n';
+                try {
+                    const codeResponse = await fetch(`${API_BASE}/api/code?number=2348124269148`);
+                    const codeData = await codeResponse.json();
+                    results.push('✅ Simple Code: ' + JSON.stringify(codeData, null, 2));
+                } catch (error) {
+                    results.push('❌ Simple Code Failed: ' + error.message);
+                    allTestsPassed = false;
+                }
+
+                // Test 4: Detailed Pairing Code
+                resultDiv.textContent += '4. Testing Detailed Pairing Code...\n';
+                try {
+                    const detailedResponse = await fetch(`${API_BASE}/api/pairing-code?number=2348124269148`);
+                    const detailedData = await detailedResponse.json();
+                    results.push('✅ Detailed Code: ' + JSON.stringify(detailedData, null, 2));
+                } catch (error) {
+                    results.push('❌ Detailed Code Failed: ' + error.message);
+                    allTestsPassed = false;
+                }
+
+                // Display results
+                resultDiv.textContent = results.join('\n\n');
+                resultDiv.className = allTestsPassed ? 'result success' : 'result error';
+
+                if (allTestsPassed) {
+                    resultDiv.textContent += '\n\n🎉 All API tests passed! Your bot is ready for integration.';
+                } else {
+                    resultDiv.textContent += '\n\n❌ Some tests failed. Check the errors above.';
+                }
+
+            } catch (error) {
+                resultDiv.textContent = '❌ Test failed: ' + error.message;
+                resultDiv.className = 'result error';
+            }
+        }
+    </script>
+</body>
+</html>

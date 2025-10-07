@@ -12,6 +12,19 @@ const { autoLoad } = require('./autoLoad.js');
 EventEmitter.defaultMaxListeners = 500;
 const code = require('./pair.js');
 
+// Enable CORS for all routes
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+    
+    if (req.method === 'OPTIONS') {
+        res.sendStatus(200);
+    } else {
+        next();
+    }
+});
+
 app.use('/code', code);
 app.use('/pair', async (req, res, next) => {
   res.sendFile(__path + '/pair.html');

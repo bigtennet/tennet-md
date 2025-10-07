@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TENNET-MD API Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .api-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .api-section h3 {
+            color: #333;
+            margin-top: 0;
+        }
+        button {
+            background: #25D366;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #128C7E;
+        }
+        input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            margin: 5px;
+        }
+        .result {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 3px;
+            margin-top: 10px;
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 TENNET-MD API Test Interface</h1>
+        <p>Test all the API endpoints for your TENNET-MD bot integration.</p>
+
+        <!-- Health Check -->
+        <div class="api-section">
+            <h3>1. Health Check</h3>
+            <button onclick="testHealth()">Test Health</button>
+            <div id="health-result" class="result"></div>
+        </div>
+
+        <!-- Bot Info -->
+        <div class="api-section">
+            <h3>2. Bot Information</h3>
+            <button onclick="testInfo()">Get Bot Info</button>
+            <div id="info-result" class="result"></div>
+        </div>
+
+        <!-- Pairing Code -->
+        <div class="api-section">
+            <h3>3. Generate Pairing Code</h3>
+            <input type="text" id="phone-number" placeholder="Phone number (e.g., 2348124269148)" value="2348124269148">
+            <button onclick="testPairingCode()">Generate Code (Detailed)</button>
+            <button onclick="testSimpleCode()">Generate Code (Simple)</button>
+            <div id="code-result" class="result"></div>
+        </div>
+
+        <!-- Integration Example -->
+        <div class="api-section">
+            <h3>4. Integration Example</h3>
+            <button onclick="integrationExample()">Run Integration Test</button>
+            <div id="integration-result" class="result"></div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'https://tennet-md.pxxl.click';
+
+        async function testHealth() {
+            const resultDiv = document.getElementById('health-result');
+            resultDiv.textContent = 'Testing...';
+            
+            try {
+                console.log(`Testing: ${API_BASE}/api/health`);
+                const response = await fetch(`${API_BASE}/api/health`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    mode: 'cors'
+                });
+                
+                console.log('Response status:', response.status);
+                console.log('Response headers:', response.headers);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                resultDiv.textContent = JSON.stringify(data, null, 2);
+                resultDiv.className = 'result success';
+            } catch (error) {
+                console.error('Health check error:', error);
+                resultDiv.textContent = `Error: ${error.message}\n\nThis might be a CORS issue. Try opening the browser console (F12) for more details.`;
+                resultDiv.className = 'result error';
+            }
+        }
+
+        async function testInfo() {
+            const resultDiv = document.getElementById('info-result');
+            resultDiv.textContent = 'Loading...';
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/info`);
+                const data = await response.json();
+                resultDiv.textContent = JSON.stringify(data, null, 2);
+                resultDiv.className = 'result success';
+            } catch (error) {
+                resultDiv.textContent = `Error: ${error.message}`;
+                resultDiv.className = 'result error';
+            }
+        }
+
+        async function testPairingCode() {
+            const phoneNumber = document.getElementById('phone-number').value;
+            const resultDiv = document.getElementById('code-result');
+            resultDiv.textContent = 'Generating pairing code...';
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/pairing-code?number=${phoneNumber}`);
+                const data = await response.json();
+                resultDiv.textContent = JSON.stringify(data, null, 2);
+                resultDiv.className = 'result success';
+            } catch (error) {
+                resultDiv.textContent = `Error: ${error.message}`;
+                resultDiv.className = 'result error';
+            }
+        }
+
+        async function testSimpleCode() {
+            const phoneNumber = document.getElementById('phone-number').value;
+            const resultDiv = document.getElementById('code-result');
+            resultDiv.textContent = 'Generating simple pairing code...';
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/code?number=${phoneNumber}`);
+                const data = await response.json();
+                resultDiv.textContent = JSON.stringify(data, null, 2);
+                resultDiv.className = 'result success';
+            } catch (error) {
+                resultDiv.textContent = `Error: ${error.message}`;
+                resultDiv.className = 'result error';
+            }
+        }
+
+        async function integrationExample() {
+            const resultDiv = document.getElementById('integration-result');
+            resultDiv.textContent = 'Running integration test...';
+            
+            try {
+                // Test all endpoints
+                const [health, info, code] = await Promise.all([
+                    fetch(`${API_BASE}/api/health`).then(r => r.json()),
+                    fetch(`${API_BASE}/api/info`).then(r => r.json()),
+                    fetch(`${API_BASE}/api/code?number=2348124269148`).then(r => r.json())
+                ]);
+
+                const integrationResult = {
+                    health_check: health,
+                    bot_info: info,
+                    pairing_code: code,
+                    integration_status: 'All APIs working successfully!',
+                    timestamp: new Date().toISOString()
+                };
+
+                resultDiv.textContent = JSON.stringify(integrationResult, null, 2);
+                resultDiv.className = 'result success';
+            } catch (error) {
+                resultDiv.textContent = `Integration Error: ${error.message}`;
+                resultDiv.className = 'result error';
+            }
+        }
+    </script>
+</body>
+</html>
